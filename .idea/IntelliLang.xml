@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LanguageInjectionConfiguration">
+    <injection language="http-header-reference" injector-id="java">
+      <display-name>Apache HttpClient 4 HTTP Header (org.apache.http)</display-name>
+      <single-file value="true" />
+      <place><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("setHeader", "addHeader", "getFirstHeader", "getLastHeader", "removeHeaders").definedInClass("org.apache.http.HttpMessage"))]]></place>
+      <place><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("setHeader", "addHeader", "getFirstHeader", "getLastHeader", "removeHeaders").definedInClass("org.apache.http.message.AbstractHttpMessage"))]]></place>
+    </injection>
+    <injection language="http-header-reference" injector-id="java">
+      <display-name>Apache HttpClient 5 HTTP Header (org.apache.hc.core5)</display-name>
+      <single-file value="true" />
+      <place><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("setHeader", "addHeader").definedInClass("org.apache.hc.core5.http.message.BasicHttpRequest"))]]></place>
+      <place><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("setHeader", "addHeader", "getFirstHeader", "getLastHeader", "removeHeaders").definedInClass("org.apache.hc.client5.http.async.methods.SimpleRequestBuilder"))]]></place>
+      <place><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("setHeader", "addHeader", "getFirstHeader", "getLastHeader", "removeHeaders").definedInClass("org.apache.hc.core5.http.io.support.ClassicRequestBuilder"))]]></place>
+      <place><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("setHeader", "addHeader", "getFirstHeader", "getLastHeader", "removeHeaders").definedInClass("org.apache.hc.core5.http.nio.support.AsyncRequestBuilder"))]]></place>
+      <place><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("setHeader", "addHeader", "getFirstHeader", "getLastHeader", "removeHeaders").definedInClass("org.apache.hc.core5.http.support.BasicRequestBuilder"))]]></place>
+    </injection>
+  </component>
+</project>
