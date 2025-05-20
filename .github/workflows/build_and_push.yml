@@ -37,4 +37,4 @@ jobs:
          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker Image
-        run: docker tag devsecops-github ohpygod/devsecops-github:latest && docker push ohpygod/devsecops-github:latest
+        run: docker tag devsecops-github ohpygod/devsecops_github:latest && docker push ohpygod/devsecops_github:latest
