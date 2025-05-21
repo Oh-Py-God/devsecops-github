@@ -6,9 +6,6 @@ on:
       java_version:
         required: true
         type: string
-      sonar_token:
-        required: true
-        type: string
       sonar_project:
         required: true
         type: string
@@ -48,6 +45,6 @@ jobs:
       # 5. Build and analyze
       - name: Build and analyze
         env:
-          SONAR_TOKEN: ${{ inputs.sonar_token }}
+          SONAR_TOKEN: ${{ secrets.sonar_token }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=${{ inputs.sonar_project }}
