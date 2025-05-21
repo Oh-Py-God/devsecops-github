@@ -22,6 +22,9 @@ jobs:
     uses: ./.github/workflows/codeql_scan.yml
     with:
       java_version: 17
+    permissions:
+      actions: read
+      security-events: write
 
   sonar_scan:
     needs: build
