@@ -32,7 +32,7 @@ jobs:
     needs: build
     uses: ./.github/workflows/sonarcloud_scan.yml
     secrets:
-      sonar_token: ${{ secrets.SONAR_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     with:
       java_version: 17
       sonar_project: devsecops_github
