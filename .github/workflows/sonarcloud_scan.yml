@@ -1,37 +1,53 @@
-name: SonarQube
+name: Scan with SonarCloud
+
 on:
-  push:
-    branches:
-      - main
-      - 'f_*'
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_call:
+    inputs:
+      java_version:
+        required: true
+        type: string
+      sonar_token:
+        required: true
+        type: string
+      sonar_project:
+        required: true
+        type: string
+
 jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up JDK 17
+      # 1. Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Set up Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: ${{ inputs.java_version }}
           distribution: 'temurin'
+
+      # 3. Cache SonarQube packages
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
+      # 4. Cache Maven packages
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
+      # 5. Build and analyze
       - name: Build and analyze
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Oh-Py-God_devsecops-github
+          SONAR_TOKEN: ${{ inputs.sonar_token }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.projectKey=${{ inputs.sonar_project }}

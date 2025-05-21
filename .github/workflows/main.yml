@@ -1,0 +1,41 @@
+name: Main Workflow
+on:
+  push:
+    branches:
+      - main
+      - 'f_*'
+
+  pull_request:
+    branches:
+      - main
+    types: [ opened, synchronize, reopened ]
+
+
+jobs:
+  build:
+    uses: ./.github/workflows/docker_build.yml
+    with:
+      image_name: devsecops_github
+
+  codeql_scan:
+    needs: build
+    uses: ./.github/workflows/codeql_scan.yml
+    with:
+      java_version: 17
+
+  sonar_scan:
+    needs: build
+    uses: ./.github/workflows/sonarcloud_scan.yml
+    with:
+      java_version: 17
+      sonar_token: ${{ secrets.SONAR_TOKEN }}
+      sonar_project: devsecops_github
+
+  push:
+    needs: build
+    uses: ./.github/workflows/dockerhub_push.yml
+    with:
+      image_name: devsecops_github
+      docker_repo: ohpygod
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
