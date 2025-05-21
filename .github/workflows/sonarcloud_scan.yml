@@ -9,11 +9,15 @@ on:
       sonar_project:
         required: true
         type: string
+    secrets:
+      sonar_token:
+        required: true
 
 jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
+
     steps:
       # 1. Checkout the code
       - name: Checkout Code

@@ -31,18 +31,18 @@ jobs:
   sonar_scan:
     needs: build
     uses: ./.github/workflows/sonarcloud_scan.yml
-    secrets:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     with:
       java_version: 17
       sonar_project: devsecops_github
+    secrets:
+      sonar_token: ${{ secrets.SONAR_TOKEN }}
 
   push:
     needs: build
     uses: ./.github/workflows/dockerhub_push.yml
     secrets:
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      docker_user: ${{ secrets.DOCKER_USERNAME }}
+      docker_pass: ${{ secrets.DOCKER_PASSWORD }}
     with:
       image_name: devsecops_github
       docker_repo: ohpygod
