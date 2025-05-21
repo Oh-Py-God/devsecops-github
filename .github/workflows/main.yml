@@ -25,6 +25,8 @@ jobs:
     permissions:
       actions: read
       security-events: write
+      contents: read
+      packages: read
 
   sonar_scan:
     needs: build
