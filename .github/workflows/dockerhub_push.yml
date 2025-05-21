@@ -16,7 +16,8 @@ on:
         required: true
 
 jobs:
-  build:
+  push:
+    name: Push to Docker Hub
     runs-on: ubuntu-latest
     steps:
       - name: Log in to Docker Hub
@@ -26,5 +27,9 @@ jobs:
           password: ${{ secrets.docker_pass }}
       - name: Push Docker Image
         run: |
+          docker tag ${{ inputs.image_name }} ${{ inputs.docker_repo }}/${{ inputs.image_name }}:latest
+          docker push "${{ inputs.docker_repo }}/${{ inputs.image_name }}:latest"
           docker tag ${{ inputs.image_name }} ${{ inputs.docker_repo }}/${{ inputs.image_name }}:${{ github.sha }}
-          docker push ${{ inputs.docker_repo }}/${{ inputs.image_name }}:${{ github.sha }}
+          docker push "${{ inputs.docker_repo }}/${{ inputs.image_name }}:${{ github.sha }}"
+          
+          

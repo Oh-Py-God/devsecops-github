@@ -37,6 +37,7 @@ jobs:
     secrets:
       sonar_token: ${{ secrets.SONAR_TOKEN }}
 
+
   push:
     needs: build
     uses: ./.github/workflows/dockerhub_push.yml
