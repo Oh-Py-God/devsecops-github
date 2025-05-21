@@ -17,4 +17,15 @@ jobs:
 
       # 2. Build the Docker Image
       - name: Build Docker Image
-        run: docker build -t ${{ inputs.image_name }} .
+        run: docker build -t ${{ inputs.image_name }}:${{ github.sha }} .
+
+      # 3. Save Docker Image to tarball
+      - name: Save Docker Image to tarball
+        run: docker save ${{ inputs.image_name }}:${{ github.sha }} -o image.tar
+
+      # 4. Upload Docker Image Artifact
+      - name: Upload Docker Image Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: image.tar

@@ -33,10 +33,9 @@ jobs:
     uses: ./.github/workflows/sonarcloud_scan.yml
     with:
       java_version: 17
-      sonar_project: devsecops_github
+      sonar_project: Oh-Py-God_devsecops-github
     secrets:
       sonar_token: ${{ secrets.SONAR_TOKEN }}
-
 
   push:
     needs: build
